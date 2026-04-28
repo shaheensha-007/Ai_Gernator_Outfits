@@ -5,8 +5,8 @@ AI Generator Outfits is a Flutter-based mobile application that uses AI to trans
 ---
 
 ## 📱 Screenshots
-  <img src="assets/screenshorts/Splash Screen.png" width="200"/>
-    <img src="assets/screenshorts/Login Screen (Updated).png" width="200"/>
+  <img src="assets/screenshorts/Splash Screen.png" width="500"/>
+    <img src="assets/screenshorts/Login Screen (Updated).png" width="500"/>
 
 
 
