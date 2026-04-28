@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "197026867712",
+    "project_id": "ai-gernator-outfits",
+    "storage_bucket": "ai-gernator-outfits.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197026867712:android:720acb7e95801a09a186e5",
+        "android_client_info": {
+          "package_name": "Ai_gernator_outfits.com.ai_gernator_outfits"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8j75oQQi4tDW0cP1mUOu_27A9Z2id0Uc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
