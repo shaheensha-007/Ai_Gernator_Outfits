@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 import '../../core/theme/app_theme.dart';
+import '../../controllers/Auth_controller/full_auth_contoller.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String username = 'Loading...';
+  String email = 'Loading...';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? 'User';
+      email = prefs.getString('email') ?? 'No email';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +36,13 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          IconButton(icon: const Icon(Icons.settings_outlined, color: AppColors.textDark), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.logout, color: AppColors.textDark), 
+            onPressed: () {
+              final authController = Get.put(AuthController());
+              authController.logout();
+            },
+          ),
         ],
       ),
       body: DefaultTabController(
@@ -24,8 +55,10 @@ class ProfileScreen extends StatelessWidget {
               backgroundColor: Colors.grey, // Replace with NetworkImage
             ),
             const SizedBox(height: 16),
-            const Text('Mohammed Shaheen pk', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(username, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
+            Text(email, style: const TextStyle(color: AppColors.textLight, fontSize: 14)),
+            const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),

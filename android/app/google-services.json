@@ -12,7 +12,20 @@
           "package_name": "Ai_gernator_outfits.com.ai_gernator_outfits"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "197026867712-gsmb3qovmcfe2tu7namdgjq8atfqfsop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "Ai_gernator_outfits.com.ai_gernator_outfits",
+            "certificate_hash": "67137ca78a3d183a3be28d2cc2b361139cbbb2a3"
+          }
+        },
+        {
+          "client_id": "197026867712-edcdq8thv21c7se7kmdrci04oq4obi42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD8j75oQQi4tDW0cP1mUOu_27A9Z2id0Uc"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197026867712-edcdq8thv21c7se7kmdrci04oq4obi42.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "197026867712-gi3r2h9qonjhfpm1cc21fg22d5iiq0o4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Aigernatoroutfits.com.aiGernatorOutfits"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,3 +1,5 @@
+
+import 'package:ai_gernator_outfits/aadhaar_screen/onbording_Screen.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 import 'Login_Screen.dart';
@@ -37,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 800),
-          pageBuilder: (_, __, ___) => const LoginScreen(),
+          pageBuilder: (_, __, ___) =>  OnboardingScreen(),
           transitionsBuilder: (_, animation, __, child) {
             return FadeTransition(opacity: animation, child: child);
           },

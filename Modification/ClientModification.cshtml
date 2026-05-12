@@ -1,0 +1,2059 @@
+﻿
+@{
+    ViewBag.Title = "ClientModification";
+    Layout = "~/Views/Shared/_ClientModificationLayout.cshtml";
+}
+<style>
+    #txtIFSC {
+        text-transform: uppercase;
+    }
+</style>
+<script src="~/Scripts/digio_vertex.js"></script>
+<div class="row">
+    <div class="col-md-6 col-lg-6 col-sm-12 offset-md-3 offset-lg-3">
+        <!--Mobile Change-->
+        <h6 style="text-decoration:underline">Client Modification Requests</h6>
+        <section class="change-section" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Change Mobile</p>
+                    <a href="#" class="btn btn-info option" id="mobile">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-mobile">
+                    <div class="row">
+                        <div class="col-md-12"><p class="expanded-p-more">Request for Changing Mobile Number</p></div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 offst-md-3 offset-lg-3 inline-controls">
+                            <input type="number" class="form-control" placeholder="Enter New Mobile Number" id="txtMobile" maxlength="10" required />
+                            <a href="#" class="verify" id="mobileverify">Verify </a>
+                            <p class="verify-success">Verified</p>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 offst-md-3 offset-lg-3 inline-controls" id="OTPDiv-mobile" style="display:none !important">
+                            <input type="number" class="form-control" placeholder="Enter OTP" id="txtOTP" />
+                            <a href="#" class="verify" id="otpverify-mobile">Verify</a>
+
+                        </div>
+                        <div class="col-md-12" id="radioOptions" style="display:none !important;text-align:center">
+
+                            <input type="checkbox" name="mobileoption" class="option-radio opt" id="mobile-trade" value="TRADING" /><label class="option-label">Trading</label>
+                            <input type="checkbox" name="mobileoption" class="option-radio opt" id="mobile-dp" value="DP" /><label class="option-label">DP</label>
+                        </div>
+                        <div class="col-md-12" style="text-align:center;display:none" id="divSubmit">
+                            <button type="button" class="btn btn-default" id="btnSubmit">Submit Request</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Email-->
+        <section class="change-section" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Change Email</p>
+                    <a href="#" class="btn btn-info option" id="email">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-email">
+                    <div class="row">
+                        <div class="col-md-12"><p class="expanded-p-more">Request for Changing Email ID</p></div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 offst-md-3 offset-lg-3 inline-controls">
+                            <input type="email" class="form-control" placeholder="Enter New Email ID" id="txtEmail" required />
+                            <a href="#" class="verify" id="emailverify">Verify </a>
+                            <p class="verify-success" id="verified-email">Verified</p>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-12 offst-md-3 offset-lg-3 inline-controls" id="OTPDiv-email" style="display:none !important">
+                            <input type="number" class="form-control" placeholder="Enter OTP" id="txtOTP-email" />
+                            <a href="#" class="verify" id="otpverify-email">Verify</a>
+                        </div>
+                        <div class="col-md-12" id="radioOptions-email" style="display:none !important;text-align:center">
+                            <input type="checkbox" name="emailoption" class="option-radio opt" id="email-trade" value="TRADING" /><label class="option-label">Trading</label>
+                            <input type="checkbox" class="option-radio opt" name="emailoption" id="email-dp" value="DP" style="margin-left:6px;" /> <label class="option-label">DP</label>
+                        </div>
+                        <div class="col-md-12" style="text-align:center;display:none" id="divSubmit-email">
+                            <button type="button" class="btn btn-default" id="btnSubmit-email">Submit Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Address-->
+        <section class="change-section" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Change Address</p>
+                    <a href="#" class="btn btn-info option" id="address">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-address">
+                    <div class="row">
+                        <div class="col-md-12"><p class="expanded-p-more">Request for Changing Address</p></div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtaddress1" class="form-control modif-text" placeholder="Address1" required />
+                            <input type="text" id="txtaddress2" class="form-control modif-text" placeholder="Address2" required />
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtcity" class="form-control modif-text" placeholder="City" required />
+                            <input type="text" id="txtzipcode" class="form-control modif-text" placeholder="Zip Code" required />
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtstate" class="form-control modif-text" placeholder="State" required />
+                            <select class="form-control modif-text" id="country">
+                                <option value="India">India</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <select class="form-control modif-text" id="address_proof">
+                                <option value="0">-New addresss proof-</option>
+                                <option value="Passport">Passport</option>
+                                <option value="VoterID">Voter ID</option>
+                                <option value="DrivingLicense">Driving License</option>
+                                <option value="BankPassbookWithLatestStatement">Bank passbook with latest three month statement</option>
+                                <option value="TelephoneBill">Telephone Bill (only Land line)</option>
+                                <option value="ElectricityBill">Electricity Bill (not more than 3 month)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="file" id="file_addressproof" class="form-control modif-text" placeholder="Address Proof" />
+                        </div>
+                        <div class="col-md-12" id="radioOptions" style="text-align:center">
+                            <input type="checkbox" name="addressoption" class="option-radio opt" id="address-trade" value="TRADING" /><label class="option-label">Trading</label>
+                            <input type="checkbox" class="option-radio opt" name="addressoption" id="address-dp" value="DP" style="margin-left:6px;" /> <label class="option-label">DP</label>
+                        </div>
+                        <div class="col-md-12" style="text-align:center">
+                            <button class="btn btn-default" id="btnsubmit_address" type="button">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Bank Info-->
+        <section class="change-section" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Change Bank Info</p>
+                    <a href="#" class="btn btn-info option" id="bank">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-bank">
+                    <div class="row">
+                        <div class="col-md-12"><p class="expanded-p-more">Request for Changing Bank Details</p></div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtAccountNumber" class="form-control modif-text" placeholder="Account Number" />
+                            <input type="text" id="txtIFSC" class="form-control modif-text" placeholder="IFSC" />
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 inline-controls-text">
+                                    <input type="text" id="txtbankname" class="form-control modif-text" placeholder="Bank Name" disabled />
+                                    <input type="text" id="txtmicrCode" class="form-control modif-text" placeholder="MICR" disabled />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <textarea class="form-control" placeholder="Bank Address" style="width:87% !important" id="txtbankaddress" disabled></textarea>
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtbranchname" class="form-control modif-text" placeholder="Branch Name" disabled />
+                            <select class="form-control modif-text" id="accounttype">
+                                <option value="0">-Account Type-</option>
+                                <option value="current">Current</option>
+                                <option value="savings">Savings</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12" id="radioOptions" style="text-align:center;padding:15px">
+                            <input type="checkbox" name="bankoption" class="option-radio opt" id="bank-trade" value="TRADING" /><label class="option-label">Trading</label>
+                            <input type="checkbox" class="option-radio opt" name="bankoption" id="bank-dp" valus="DP" style="margin-left:6px;" /> <label class="option-label">DP</label>
+                        </div>
+
+                        <div class="col-md-12" style="text-align:center">
+                            <button class="btn btn-default" id="btnsubmit_bankverify">Verify and Submit</button>
+                        </div>
+                        <div class="col-md-12 inline-controls-text" id="bankProofDiv" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-6 inline-controls-text">
+                                    <select id="bankproof" class="form-control">
+                                        <option value="ChequeLeaf">Cancelled Cheque leaf</option>
+                                        <option value="BankStatement">Bank Statement</option>
+                                        <option value="PassbookFrontPage">Front page of Passbook</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 inline-controls-text">
+                                    <input type="file" id="upload_bankproof" class="form-control" placeholder="Bank Proof" />
+                                </div>
+                                <div class="col-md-12" style="text-align:center;">
+                                    <button class="btn btn-default" id="btnsubmit_bank">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--Nomination-->
+        <section class="change-section" style="margin-top:20px;">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Change Nominee</p>
+                    <a href="#" class="btn btn-info option" id="nomination">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-nomination">
+                    <div class="row">
+                        <div class="col-md-12"><p class="expanded-p-more">Request for Changing Nominee</p></div>
+                        <div class="col-md-12 inline-controls-text">
+                            <select class="form-control modif-text" id="nomineeTitle">
+                                <option value="Mr.">Mr.</option>
+                                <option value="Ms.">Ms.</option>
+                            </select>
+                            <input type="text" id="txtNomineeName" class="form-control modif-text" placeholder="Name" />
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <textarea class="form-control" placeholder="Nominee Address" id="txtNomineeAddress" style="width:87% !important"></textarea>
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtNomineeDOB" class="form-control modif-text" placeholder="Nominee DOB" onfocus="(this.type='date')" />
+                            <input type="text" id="txtNomineeRelation" class="form-control modif-text" placeholder="Relation with Nominee" />
+
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <input type="text" id="txtNomineeMobile" class="form-control modif-text" placeholder="Nominee Mobile" />
+                            <input type="text" id="txtNomineeEmail" class="form-control modif-text" placeholder="Nominee Email" />
+                        </div>
+                        <div class="col-md-12 inline-controls-text">
+                            <select class="form-control modif-text" id="nomineeProof">
+                                <option value="pan">PAN</option>
+                                <option value="aadhar">Aadhar</option>
+                            </select>
+                            <input type="file" id="file_nomineeproof" class="form-control modif-text" placeholder="Nominee Proof" />
+                        </div>
+                        <div class="col-md-12" id="radioOptions" style="text-align:center">
+                            <input type="checkbox" name="nomineeoption" class="option-radio opt" id="nomination-trade" value="TRADING" /><label class="option-label">Trading</label>
+                            <input type="checkbox" class="option-radio opt" name="nomineeoption" id="nomination-dp" value="DP" style="margin-left:6px;" /> <label class="option-label">DP</label>
+                        </div>
+                        <div class="col-md-6 offset-md-3" style="text-align:center">
+                            <input type="checkbox" id="minornominee" style="width:11%" />
+                            <span class="modif-text" style="font-size:12px">Nominee is Minor?</span>
+                        </div>
+                        <div class="col-md-12" style="display:none;" id="minornominee_div">
+                            <div class="row">
+                                <div class="col-md-12 inline-controls-text">
+                                    <select class="form-control modif-text" id="guardianTitle" style="width:10% !important;padding:.1px !important">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Ms.">Ms.</option>
+                                    </select>
+                                    <input type="text" id="txtGuardianName" class="form-control modif-text" placeholder="Guardian Name" style="width:35% !important;" />
+                                    <input type="text" id="txtGuardianRelation" class="form-control modif-text" placeholder="Relation with Guardian" style="width:30% !important" />
+                                </div>
+                                <div class="col-md-12 inline-controls-text">
+                                    <textarea class="form-control" placeholder="Guardian Address" id="txtGuardianAddress" style="width:87% !important"></textarea>
+                                </div>
+                                <div class="col-md-12 inline-controls-text">
+                                    <input type="text" id="txtGuardianMobile" class="form-control modif-text" placeholder="Guardian Mobile" />
+                                    <input type="text" id="txtGuardianEmail" class="form-control modif-text" placeholder="Guardian Email" />
+                                </div>
+                                <div class="col-md-12 inline-controls-text">
+                                    <select class="form-control modif-text" id="guardianProofType">
+                                        <option value="pan">PAN</option>
+                                        <option value="aadhar">Aadhar</option>
+                                    </select>
+                                    <input type="file" id="file_guardianproof" class="form-control modif-text" placeholder="Guardian Proof" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align:center">
+                            <button class="btn btn-default" id="btnsubmit_nominee">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-Financial Updation-->
+        <section class="change-section" style="margin-top:20px;margin-bottom:20px">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Financial Updation</p>
+                    <a href="#" class="btn btn-info option" id="fin">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-fin">
+                    <div class="row" id="divSubmit-fin">
+                        <div class="col-md-12" style="text-align:center;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12" style="text-align:left;padding-bottom:10px">
+                                            <span class="modif-text_" style="font-size:12px">Income Range</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="incomerange" class="option-radio opt" id="below1lakh" value="Below1Lakh" /><label class="option-label">Below 1 Lakh</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="incomerange" class="option-radio opt" id="oneto5lakh" value="1to5Lakh" /><label class="option-label">1-5 Lakh</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="incomerange" class="option-radio opt" id="fiveto10lakh" value="5to10Lakh" /><label class="option-label">5-10 Lakh</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="incomerange" class="option-radio opt" id="tento25lakh" value="10to25Lakh" /><label class="option-label">10-25 Lakh</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="incomerange" class="option-radio opt" id="twentyfiveto1cr" value="25to1Cr" /><label class="option-label">25-1 Cr</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="radio" name="incomerange" class="option-radio opt" id="above1cr" value="Above1Cr" /><label class="option-label">Above 1 Cr</label>
+                                        </div>
+                                        <div class="col-md-2" style="text-align:left;padding-top:10px">
+                                            <span class="modif-text_" style="font-size:12px">As on Date</span>
+                                        </div>
+                                        <div class="col-md-4" style="padding-bottom: 40px;padding-top:10px">
+                                            <input type="date" id="incomedate" class="form-control" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <span class="modif-text_" style="font-size:12px">Net Worth</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" id="networth" class="form-control" />
+                                </div>
+                                <div class="col-md-2" style="text-align:left;">
+                                    <span class="modif-text_" style="font-size:12px">As on Date</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="date" id="networthdate" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="margin-top:10px">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <span class="modif-text_" style="font-size:12px">Proof</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-control" id="financial_proof">
+                                        <option value="0">-Financial Proof-</option>
+                                        <option value="Copy of ITR Acknowledgement">Copy of ITR Acknowledgement</option>
+                                        <option value="Copy of Annual Accounts (For Corporates)">Copy of Annual Accounts (For Corporates)</option>
+                                        <option value="Salary Slip or Form 16 (In case of Salary Income)">Salary Slip or Form 16 (In case of Salary Income)</option>
+                                        <option value="NetWorth Certificates duly certified by Chartered Accountant">NetWorth Certificates duly certified by Chartered Accountant</option>
+                                        <option value="Copy of Demat Holding Statement">Copy of Demat Holding Statement</option>
+                                        <option value="Bank account Statement for last 6 months">Bank account Statement for last 6 months</option>
+                                        <option value="Self-declaration along with relevant supporting documents">Self- declaration along with relevant supporting documents</option>
+                                        <option value="DP Holdings">DP Holdings</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="modif-text_" style="font-size:12px">Upload File</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="file" id="file_financialproof" class="form-control" placeholder="Financial Proof" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align:center;margin-top:20px">
+                            <button class="btn btn-default" id="btnsubmit_financial">Submit</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Account Closure-->
+        <section class="change-section" style="margin-top:20px;margin-bottom:20px;">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Account Closure</p>
+                    <a href="#" class="btn btn-info option" id="closure">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-closure">
+                    <div class="row" style="font-size:13px">
+                        <div class="col-md-12"><p class="expanded-p-more">Request for Account Closure</p></div>
+                        <div class="col-md-12 inline-controls">
+                            <textarea type="text" class="form-control" style="width:90%" placeholder="Reason for Closure" id="txtreason" required></textarea>
+                        </div>
+
+                        <div class="col-md-12 inline-controls" style="justify-content:center;padding-bottom:30px;">
+                            <input type="radio" id="havebalance" name="balance" class="option-radio" value="HAVE_BALANCE" /> <label class="option-label" style="margin-top:5px !important;padding:10px">Have Balance with Vertex</label>
+                            <input type="radio" id="nobalance" name="balance" class="option-radio" value="HAVE_NO_BALANCE" /> <label class="option-label" style="margin-top:5px !important;padding:10px"> Have No Balance with Vertex</label>
+                        </div>
+
+                        <div class="col-md-12 inline-controls havebalance" style="display:none;">
+                            <div class="row">
+                                <div class="col-md-12" style="font-size:12px;color:red;text-decoration:underline">
+                                    Specify how you want to keep your shares
+                                </div>
+                                <div class="col-md-12 inline-controls" style="font-size:12px;justify-content:space-around;padding-left:15px;padding-right:15px;">
+
+                                    <input type="radio" id="transfer_ownaccount" name="sharetransfer" class="option-radio" value="TRANSFER_TO_MY_ACCOUNT" /><label class="option-label" style="margin-top:5px !important">Transfer to my Account</label>
+
+                                    <input type="radio" id="transfer_anotheraccount" name="sharetransfer" class="option-radio" value="TRANSFER_TO_ANOTHER_ACCOUNT" /><label class="option-label" style="margin-top:5px !important">Transfer to any another Account</label>
+
+                                    <input type="radio" id="remat" name="sharetransfer" class="option-radio" value="REMATERIALIZE" /><label class="option-label" style="margin-top:5px !important">Rematerialize / Reconvert Account</label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 inline-controls transfer_ownaccount" style="display:none;border:1px solid #f3eaea">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12" style="font-size:12px;color:red;text-align:center;text-decoration:underline">
+                                            Target Account Details
+                                        </div>
+                                        <div class="col-md-6 offset-md-3 inline-controls" style="justify-content:space-around;font-size:12px">
+                                            <p>Target Depository</p>
+                                            <input type="radio" id="nsdl" name="depository" class="option-radio" value="NSDL" /> NSDL
+                                            <input type="radio" id="cdsl" name="depository" class="option-radio" value="CDSL" /> CDSL
+                                        </div>
+                                        <div class="col-md-12 inline-controls" style="justify-content:space-around">
+                                            <input type="text" placeholder="Target DP ID" id="targetdp" class="form-control" style="width:40%;" />
+                                            <input type="text" placeholder="Target Client ID" id="targetclient" class="form-control" style="width:40%;" />
+                                        </div>
+
+                                        <div class="col-md-12 inline-controls" style="font-size:12px;justify-content:space-around">
+                                            <p style="padding-top:10px;">Client master of Target account</p>
+                                            <input type="file" placeholder="" id="cmfile" style="width:40%" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align:center;padding:20px" id="divSubmit-closure">
+                            <button type="button" class="btn btn-default" id="btnSubmit-closure">Submit Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--DDPI-->
+        @{
+            @*if (ViewBag.POA != null)
+            {
+                if ((int)ViewBag.POA != 1)
+                {
+                    <section class="change-section" style="margin-top:20px;margin-bottom:20px">
+                        <div class="row">
+                            <div class="col-md-12 expandedview">
+                                <p class="expanded-p">DDPI Activation</p>
+                                <a href="#" class="btn btn-info option" id="ddpi">
+                                    <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-12 expanded-content" id="exp-ddpi">
+                                <div class="row">
+                                    <div class="col-md-12" style="text-align:center;" id="divSubmit-ddpi">
+                                        <button type="button" class="btn btn-default" id="btnSubmit-ddpi">ESign DDPI Agreement</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                }
+            }*@
+        }
+
+        <!--MTF-->
+        <section class="change-section" style="margin-top:20px;margin-bottom:20px">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">MTF Agreement</p>
+                    <a href="#" class="btn btn-info option" id="mtf">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-mtf">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align:center;" id="divSubmit-mtf">
+                            <button type="button" class="btn btn-default" id="btnSubmit-mtf">ESign MTF Agreement</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Exchange Addition-->
+        <section class="change-section" style="margin-top:20px;margin-bottom:40px">
+            <div class="row">
+                <div class="col-md-12 expandedview">
+                    <p class="expanded-p">Segment Addition</p>
+                    <a href="#" class="btn btn-info option" id="segmentaddition">
+                        <span class="fa fa-plus" style="font-size:30px;color:#ff6a00 !important"></span>
+                    </a>
+                </div>
+                <div class="col-md-12 expanded-content" id="exp-segmentaddition">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="Cash" type="checkbox" value="" id="Nse_Cash">
+                                <label class="form-check-label" for="Equity">
+                                    NSE Cash
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="FaO" type="checkbox" value="" id="Nse_FaO">
+                                <label class="form-check-label" for="Equity">
+                                    NSE F&O
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="Cash" type="checkbox" value="" id="Bse_Cash">
+                                <label class="form-check-label" for="Equity">
+                                    BSE Cash
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="FaO" type="checkbox" value="" id="Bse_FaO">
+                                <label class="form-check-label" for="Equity">
+                                    BSE F&O
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="FaO" type="checkbox" value="" id="Mcx_FaO">
+                                <label class="form-check-label">
+                                    MCX F&O
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="Currency" type="checkbox" value="" id="Nse_Currency">
+                                <label class="form-check-label">
+                                    NSE Currency
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input exchange_checkboxes" data-bind="Slbm" type="checkbox" value="" id="Nse_Slbm">
+                                <label class="form-check-label">
+                                    SLBM
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="display:none" id="DivSegmentAddition_proof">
+                            <div class="row">
+                                <div class="col-md-6 inline-controls-text">
+                                    <select id="SegmentAdditionproof" class="form-control">
+                                        <option value="BankStatement">Bank Statement</option>
+                                        <option value="ITReturns">IT Returns</option>
+                                        <option value="SalarySlip">Salary Slip</option>
+                                        <option value="Form16">Copy of Form16</option>
+                                        <option value="NetworthCertificate">Networth Certificate</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 inline-controls-text">
+                                    <input type="file" id="upload_SegmentAdditionproof" class="form-control" placeholder="Financial Proof" />
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="text-align:center;" id="divSubmit-SegmentAddition">
+                            <button type="button" class="btn btn-default" id="btnSubmit-SegmentAddition">ESign</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@{ 
+    Html.RenderPartial("_loader");
+}
+
+<script>
+    function Changetodefault_email () {
+        $('#emailverify').css('color', 'red');
+        $('#emailverify').text("Verify");
+        $('#emailverify').prop("disabled", false);
+        $('#divSubmit-email').css('display', 'none');
+        $("#OTPDiv-email").css('display', 'none !important');
+        $('#txtOTP-email').val('');
+    }
+    function Changetodefault_mobile () {
+        $('#mobileverify').css('color', 'red');
+        $('#mobileverify').text("Verify");
+        $('#moileverify').prop("disabled", false);
+        $('#divSubmit-mobile').css('display', 'none');
+        $("#OTPDiv-mobile").css('display', 'none !important');
+        $('#txtOTP-mobile').val('');
+        $('#divSubmit').css('display', 'none');
+    }
+    $(document).ready(function () {
+        bindClientSegments();
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var maxDate = year + '-' + month + '-' + day;
+        $('#networthdate').attr('max', maxDate);
+        $('#incomedate').attr('max', maxDate);
+
+        $('#txtEmail').change(function () {
+            Changetodefault_email();
+        });
+                $('.option').click(function () {
+                    var id = $(this).attr('id');
+                    $('#exp-' + id).toggle();
+                    if ($('#exp-' + id).css('display') == 'none') {
+                        $(this).closest('span').removeClass('fa fa-minus').addClass('fa fa-plus');
+                    }
+                    else {
+                        $(this).closest('span').removeClass('fa fa-plus').addClass('fa fa-minus');
+                    }
+
+                });
+                $('#txtMobile').change(function () {
+                    $('#radioOptions').css('display', 'none !important');
+                    $('#verify-success').css('display', 'none !important');
+                    $('#mobileverify').css('display', 'block !important');
+                    $('#divSubmit').css('display', 'none !important');
+                    $("#OTPDiv-mobile").css('display', 'none !important');
+                    $('#txtOTP').val('');
+                });
+                $('#mobileverify').click(function () {
+                    var mobile = $('#txtMobile').val();
+                    if (mobile.length != 10) {
+                        alert('Enter a valid mobile number');
+                        $(this).focus();
+                        return false;
+                    }
+                    displayLoader();
+                        $.ajax({
+                             type: "post",
+                            url: "@Url.Action("sendOtp_CLientModification", "Modification")",
+                            data: { mobile: mobile },
+                             success: function (response) {
+                                 if (response.Result === 'Success') {
+                                     hideLoader();
+                                     alert(response.Message);
+                                     $("#OTPDiv-mobile").css('display', 'flex');
+                                 }
+                                 else {
+                                     hideLoader();
+                                     alert(response.Message);
+                                 }
+                            },
+                            error: function (response) {
+                                hideLoader();
+                                alert('Something went wrong while processing request');
+                              }
+                         });
+
+
+                });
+                $('#otpverify-mobile').click(function () {
+                    var otp = $('#txtOTP').val();
+                    if (otp == '') {
+                        alert('Enter OTP');
+                        return false;
+                    }
+                    displayLoader();
+                    $.ajax({
+                      type: "post",
+                        url: "/Modification/VerifyOtp",
+                        data: { otp: otp },
+                        success: function (response) {
+                            if (response === "success") {
+                            $('#radioOptions').css('display','block');
+                                $('#mobileverify').css('color', 'green');
+                                $('#mobileverify').text("Verified");
+                                $('#mobileverify').prop("disabled", "true");
+                                $('#divSubmit-mobile').css('display', 'block');
+                                $('#txtOTP').css('display', 'none');
+                                $('#otpverify-mobile').css('display', 'none');
+                                $('#divSubmit').css('display', 'block');
+                                hideLoader();
+                            }
+                            else {
+                                hideLoader();
+                                alert('Invalid Otp');
+                            }
+                        },
+                        error: function (response) {
+                            alert('Something went wrong');
+                            hideLoader();
+                        }
+                    });
+                });
+                $('#btnSubmit').click(function () {
+                    var mobile = $('#txtMobile').val();
+                    if (mobile === '') {
+                        alert('Enter Mobile number');
+                        return false;
+                    }
+                    var modificationoption = $('input[name="mobileoption"]:checked').val();
+                    if (modificationoption === undefined) {
+                        alert('Kindly choose Modification account type');
+                        return false;
+                    }
+                    var modificationoption = '';
+                    if ($('#mobile-trade').is(':checked')) {
+                        modificationoption = 'TRADING,';
+                    }
+                     if ($('#mobile-dp').is(':checked')) {
+                         modificationoption += "DP";
+                    }
+
+                    if (modificationoption === '') {
+                        alert('Choose modification account type');
+                        return false;
+                    }
+                    displayLoader();
+                    $.ajax({
+                        type: "post",
+                        url: "/Modification/ClientModification_Mobile",
+                        data: { mobile: mobile,option:modificationoption
+                            },
+                        success: function (response) {
+                            hideLoader();
+                            if (response.Data === "Success") {
+                                alert('Request has been submitted successfully.');
+                                $('#txtMobile').val('');
+                                $('#txtOTP').val('');
+                                $("#OTPDiv-mobile").css('display', 'none !important');
+                                Changetodefault_mobile();
+                            }
+                            else if (response.Data == "failed") {
+                                alert('Unable to send Modification Request');
+                            }
+                            else {
+                                alert(response.Data);
+                            }
+                        },
+                        error: function (response) {
+                            hideLoader();
+                            alert('Something went wrong while submitting modification request');
+                        }
+                    });
+                });
+
+
+                //Email
+                 $('#emailverify').click(function () {
+                     var email = $('#txtEmail').val();
+                     displayLoader();
+                        $.ajax({
+                             type: "post",
+                            url: "@Url.Action("sendOtp_CLientModification_Email", "Modification")",
+                            data: { email: email },
+                            success: function (response) {
+                                hideLoader();
+                                 if (response.Result === 'Success') {
+                                     alert('OTP has been sended to your new Email id');
+                                     $("#OTPDiv-email").css('display', 'flex');
+                                     $('#txtOTP-email').css('display', 'block');
+                                     $('#otpverify-email').css('display', 'block');
+                                 }
+                                 else {
+                                     alert(response.Message);
+                                 }
+                            },
+                            error: function (response) {
+                                hideLoader();
+                                alert('Something went wrong while processing request');
+                              }
+                         });
+                 });
+
+                $('#otpverify-email').click(function () {
+                    var otp = $('#txtOTP-email').val();
+                    if (otp == '') {
+                        alert('Enter OTP');
+                        return false;
+                    }
+                    displayLoader();
+                    $.ajax({
+                        type: "post",
+                        url: "/Modification/VerifyOtp",
+                        data: { otp: otp },
+                        success: function (response) {
+                            hideLoader();
+                            if (response === "success") {
+                                $('#radioOptions-email').css('display', 'block');
+                                $('#emailverify').css('color', 'green');
+                                $('#emailverify').text("Verified");
+                                $('#emailverify').prop("disabled","true");
+                                $('#divSubmit-email').css('display', 'block');
+                                $('#txtOTP-email').css('display', 'none');
+                                $('#otpverify-email').css('display', 'none');
+                            }
+                            else {
+                                alert('Invalid Otp');
+                            }
+                        },
+                        error: function (response) {
+                            hideLoader();
+                            alert('Something went wrong');
+                        }
+                    });
+                });
+                $('#btnSubmit-email').click(function () {
+                    var email = $('#txtEmail').val();
+                    if (email === '') {
+                        alert('Enter Email');
+                        return false;
+                    }
+                    var modificationoption = '';
+                    if ($('#email-trade').is(':checked')) {
+                        modificationoption = 'TRADING,';
+                    }
+                    if ($('#email-dp').is(':checked')) {
+                        modificationoption += "DP";
+                    }
+
+                    if (modificationoption === '') {
+                        alert('Choose modification account type');
+                        return false;
+                    }
+                    displayLoader();
+                    $.ajax({
+                        type: "post",
+                        url: "/Modification/ClientModification_Email",
+                        data: {
+                            email: email, option: modificationoption
+                        },
+                        success: function (response) {
+                            hideLoader();
+                            if (response.Data === "Success") {
+                                alert('Request has been submitted successfully.');
+                                $('#txtEmail').val('');
+                                Changetodefault_email();
+                            }
+                            else if (response.Data == "failed") {
+                                alert('Unable to send Modification Request');
+                            }
+                            else {
+                                alert(response.Data);
+                            }
+                        },
+                        error: function (response) {
+                            hideLoader();
+                            alert('Something went wrong while submitting modification request');
+                        }
+                    });
+                });
+
+                $('#minornominee').change(function () {
+                    if ($(this).is(':checked')) {
+                        $('#minornominee_div').css('display', 'block');
+                    }
+                    else {
+                        $('#minornominee_div').css('display', 'none');
+                    }
+                });
+
+                $('#btnsubmit_address').click(function () {
+                    var address1 = $('#txtaddress1').val();
+                    var address2 = $('#txtaddress2').val();
+                    var city = $('#txtcity').val();
+                    var zipcode = $('#txtzipcode').val();
+                    var state = $('#txtstate').val();
+                    var country = $('#country').val();
+                    var addressType = $('#address_proof').val();
+                    if (address1 === '') {
+                        alert('Enter Address1');
+                        return false;
+                    }
+                    if (address2 === '') {
+                        alert('Enter Address2');
+                        return false;
+                    }
+                    if (city === '') {
+                        alert('Enter City');
+                        return false;
+                    }
+                    if (zipcode === '') {
+                        alert('Enter Zip Code');
+                        return false;
+                    }
+                    if (state === '') {
+                        alert('Enter State name');
+                        return false;
+                    }
+                    if (country === '') {
+                        alert('Choose Country');
+                        return false;
+                    }
+
+                    var modificationoption = '';
+                    if ($('#address-trade').is(':checked')) {
+                        modificationoption = 'TRADING,';
+                    }
+                    if ($('#address-dp').is(':checked')) {
+                        modificationoption += "DP";
+                    }
+
+                    if (modificationoption === '') {
+                        alert('Choose modification account type');
+                        return false;
+                    }
+
+                    if (addressType != '0') {
+                        var file = $('#file_addressproof').prop('files')[0];
+                        if (file != null) {
+                            if (file > 2097152) {
+                                alert("Please try to upload file less than 2MB!");
+                                return false;
+                            }
+                            var fileType = file["type"];
+                            var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+
+                            if ($.inArray(fileType, validImageTypes) < 0) {
+                                // invalid file type code goes here.
+                                alert('Please upload file in these formats only (jpeg,png,pdf)')
+                            }
+                            else {
+
+                                var address1 = $('#txtaddress1').val();
+                                var address2 = $('#txtaddress1').val();
+                                var city = $('#txtcity').val();
+                                var zipcode = $('#txtzipcode').val();
+                                var state = $('#txtstate').val();
+                                var country = $('#country').val();
+
+                                var data = null;
+                                var reader = new FileReader();
+                                reader.readAsBinaryString(file);
+                                reader.onload = function () {
+                                data = btoa(reader.result);
+
+                    if (data.length > 0) {
+
+                        var formData = new FormData();
+                        formData.append("address1", address1);
+                        formData.append("address2", address2);
+                        formData.append('city', city);
+                        formData.append("zipcode", zipcode);
+                        formData.append("state", state);
+                        formData.append("country", country);
+                        formData.append("prooftype", addressType);
+                        formData.append("file", data);
+                        formData.append("option", modificationoption);
+                        formData.append("fileType", fileType);
+                        displayLoader();
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("CLientModification_Address", "Modification")",
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (response) {
+                                hideLoader();
+                                if (response.ModificationResponse === 'Success') {
+                                    if (response.Doc_Id != 'NA' && response.Doc_Id != 'errorattachment') {
+                                        esignDocument(response.Doc_Id, response.Email);
+                                    }
+                                    else if (response.Doc_Id === 'errorattachment') {
+                                        alert('Some of your attached document is password protected. We cannot process such documents. Please upload it agian by removing password protection and continue the process.')
+                                    }
+                                }
+                                else {
+                                    alert(response.ModificationResponse);
+                                }
+
+                            },
+                            error: function (response) {
+                                hideLoader();
+                                alert('Something went wrong while uploading the file');
+                            }
+                        });
+                    }
+                    else {
+                        alert('Please choose the file');
+                    }
+                }
+                            }
+                        }
+                        else {
+                            alert('Please upload a proof for your new address');
+                        }
+                    }
+                    else {
+                        alert('Please choose a type of proof you want to upload');
+                    }
+                });
+
+
+
+                //Bank
+                $('#txtIFSC').change(function () {
+                    $('#txtbankname').val('');
+                    $('#txtmicrCode').val('');
+                    $('#txtbranchname').val('');
+                    $('#txtbankaddress').val('');
+                    var IFSC = $(this).val();
+                    if (IFSC === '') {
+                        alert('Enter IFSC code');
+                        return false;
+                    }
+                    displayLoader();
+                    $.ajax({
+                        type: "post",
+                        url: "/Modification/GetBankDetails",
+                        data: { ifsc: IFSC },
+                        dataType: "json",
+                        success: function (response) {
+                            hideLoader();
+                            if (response.Status === "Success") {
+                                if (response.Data.BankName != "") {
+                                    $('#btnsubmit_bankverify').css('display', 'inline-block');
+                                    $('#txtbankname').val(response.Data.BankName);
+                                    $('#txtbranchname').val(response.Data.BranchName);
+                                    $('#txtmicrCode').val(response.Data.MICR);
+                                    $('#txtbankaddress').val(response.Data.BranchAddress);
+                                }
+                                else {
+                                    $('#btnsubmit_bankverify').css('display', 'none');
+                                }
+                            }
+                            else {
+                                alert('Bank Details not found');
+                                $('#txtbankname').val('');
+                                $('#txtmicrCode').val('');
+                                $('#txtbranchname').val('');
+                                $('#txtbankaddress').val('');
+                            }
+
+                        },
+                        error: function (response) {
+                            alert('Something went wrong while fetching BankInfo');
+
+                        }
+                    });
+                });
+
+
+                $('#btnsubmit_bankverify').click(function () {
+                    var accountNumber = $('#txtAccountNumber').val();
+                    var IFSC = $('#txtIFSC').val();
+                    var bankName = $('#txtbankname').val();
+                    var branch = $('#txtbranchname').val();
+                    var micr = $('#txtmicrCode').val();
+                    var address = $('#txtbankaddress').val();
+                    var accountType = $('#accounttype').val();
+
+                    if (accountNumber === '') {
+                        alert('Enter Account Number');
+                        return false;
+                    }
+                    if (IFSC === '') {
+                        alert('Enter IFSC Code');
+                        return false;
+                    }
+                    if (bankName === '') {
+                        alert('Bank not Found');
+                        return false;
+                    }
+                    if (accountType === '0') {
+                        alert('Choose Account Type');
+                        return false;
+                    }
+                    var modificationoption = '';
+                    if ($('#bank-trade').is(':checked')) {
+                        modificationoption = 'TRADING,';
+                    }
+                    if ($('#bank-dp').is(':checked')) {
+                        modificationoption += "DP";
+                    }
+
+                    if (modificationoption === '') {
+                        alert('Choose modification account type');
+                        return false;
+                    }
+                    var formData = new FormData();
+                    formData.append("accountnumber", accountNumber);
+                    formData.append("ifsc", IFSC);
+                    formData.append("bankname", bankName);
+                    formData.append("branch", branch);
+                    formData.append("micr", micr);
+                    formData.append("address", address);
+                    formData.append("option", modificationoption);
+                    formData.append("accounttype", accountType);
+                    displayLoader();
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("VerifyBankAccount","Modification")",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            hideLoader();
+                            if (response.ProcessStatus === "success") {
+                                if (response.ApiStatus === "success") {
+                                    if (response.AccountStatus === "verified") {
+                                        //ESign the document
+                                        esignDocument(response.docID, response.Email);
+                                    }
+                                    else {
+                                        alert('Your Beneficiary Bank name not match with your name in demat. Please upload any of the mentioned document to continue;');
+                                        $('#bankProofDiv').css("display", "block");
+                                        $(this).css('display', 'none !important');
+                                    }
+                                }
+                                else {
+                                    alert('Unable to verify Bank details.Please upload any of the mentioned document');
+                                    $('#bankProofDiv').css("display", "block");
+                                    $(this).css('display', 'none !important');
+
+                                }
+                            } else {
+                                alert('You have already submitted a Bank change Request');
+                            }
+                        },
+                        error: function (response) {
+                            hideLoader();
+                            alert('Something went wrong while fetching BankInfo');
+
+                        }
+                    });
+                });
+                $('#btnsubmit_bank').click(function () {
+                     var accountNumber = $('#txtAccountNumber').val();
+                    var IFSC = $('#txtIFSC').val();
+                    var bankName = $('#txtbankname').val();
+                    var branch = $('#txtbranchname').val();
+                    var micr = $('#txtmicrCode').val();
+                    var address = $('#txtbankaddress').val();
+                    var bankProof = $('#bankproof').val();
+                    var accountType = $('#accounttype').val();
+
+                    if (accountNumber === '') {
+                        alert('Enter Account Number');
+                        return false;
+                    }
+                    if (IFSC === '') {
+                        alert('Enter IFSC Code');
+                        return false;
+                    }
+                    if (bankName === '') {
+                        alert('Bank not Found');
+                        return false;
+                    }
+                    var modificationoption = '';
+                    if ($('#bank-trade').is(':checked')) {
+                        modificationoption = 'TRADING,';
+                    }
+                    if ($('#bank-dp').is(':checked')) {
+                        modificationoption += "DP";
+                    }
+
+                    if (modificationoption === '') {
+                        alert('Choose modification account type');
+                        return false;
+                    }
+
+                    if (bankProof != '') {
+                        var file = $('#upload_bankproof').prop('files')[0];
+                        if (file != null) {
+                            if (file > 2097152) {
+                                alert("Please try to upload file less than 2MB!");
+                                return false;
+                            }
+                            var fileType = file["type"];
+                            var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+
+                            if ($.inArray(fileType, validImageTypes) < 0) {
+                                // invalid file type code goes here.
+                                alert('Please upload file in these formats only (jpeg,png,pdf)')
+                            }
+                            else {
+
+                                var formData = new FormData();
+                                formData.append("accountnumber", accountNumber);
+                                formData.append("ifsc", IFSC);
+                                formData.append("bankname", bankName);
+                                formData.append("branch", branch);
+                                formData.append("micr", micr);
+                                formData.append("address", address);
+                                formData.append("bankproof", bankProof);
+                                formData.append("option", modificationoption);
+                                formData.append("accounttype", accountType);
+
+                                var data = null;
+                                var reader = new FileReader();
+                                reader.readAsBinaryString(file);
+                                reader.onload = function () {
+                                    data = btoa(reader.result);
+                                    if (data.length > 0) {
+                                        formData.append("file", data);
+                                        formData.append("fileType", fileType);
+                                        displayLoader();
+
+                    $.ajax({
+                        type: "post",
+                        url: "@Url.Action("BankModification_WithProof", "Modification")",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            hideLoader();
+                            if (response.ProcessStatus === "success") {
+                                if (response.AccountStatus === "success") {
+                                    //ESign the document
+                                    esignDocument(response.docID, response.Email);
+                                }
+                                else {
+                                    alert('Unable to submit your request');
+                                    $('#bankProofDiv').css("display", "block");
+                                }
+                            }
+                            else {
+                                alert('You have already submitted Bank details Change request');
+                            }
+
+                        },
+                        error: function (response) {
+                            hideLoader();
+                            alert('Something went wrong while fetching BankInfo');
+
+                        }
+                    });
+                                    }
+                                    else {
+                                        alert('Please upload Proof');
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            alert('Please upload Proof');
+                        }
+                    }
+                    else {
+                        alert('Please choose the type of Proof');
+                    }
+
+                });
+
+    $('#btnsubmit_nominee').click(function () {
+        var nomineeTitle = $('#nomineeTitle').val();
+        var nomName = $('#txtNomineeName').val();
+        var address = $('#txtNomineeAddress').val();
+        var dob = $('#txtNomineeDOB').val();
+        var relation = $('#txtNomineeRelation').val();
+        var mobile = $('#txtNomineeMobile').val();
+        var email = $('#txtNomineeEmail').val();
+        var nomineeProof = $('#nomineeProof').val();
+        if (nomineeTitle == '') {
+            alert('Choose nominee title');
+            return false;
+        }
+        if (nomName === '') {
+            alert('Enter name of Nominee');
+            $('#txtNomineeName').focus();
+            return false;
+        }
+        if (address === '') {
+            alert('Enter Address of nominee');
+            $('#txtNomineeAddress').focus();
+            return false;
+        }
+        if (dob === '') {
+            alert('Enter Nominee dob');
+            $('#txtNomineeDOB').focus();
+            return false;
+        }
+        if (relation === '') {
+            alert('Enter Relation with nominee');
+            $('#txtNomineeRelation').focus();
+            return false;
+        }
+        if (mobile === '') {
+            alert('Enter Nominee mobile');
+            $('#txtNomineeMobile').focus();
+            return false;
+        }
+        var phoneno = /^\d{10}$/;
+        if (!(mobile.match(phoneno))){
+            alert('Enter a valid mobile number');
+            return false;
+            }
+        if (email === '') {
+            alert('Enter Nominee email id');
+            $('#txtNomineeEmail').focus();
+            return false;
+        }
+        if (nomineeProof === '0') {
+            alert('Enter Nominee proof type');
+            $('#nomineeProof').focus();
+            return false;
+        }
+        var modificationoption = '';
+        if ($('#nomination-trade').is(':checked')) {
+            modificationoption = 'TRADING,';
+        }
+        if ($('#nomination-dp').is(':checked')) {
+            modificationoption += "DP";
+        }
+
+        if (modificationoption === '') {
+            alert('Choose modification account type');
+            return false;
+        }
+        var formData = new FormData();
+
+
+
+        formData.append("nomineetitle", nomineeTitle);
+        formData.append("nomineename", nomName);
+        formData.append("address", address);
+        formData.append("dob", dob);
+        formData.append("relation", relation);
+        formData.append("mobile", mobile);
+        formData.append("email", email);
+        formData.append("nomineeprooftype", nomineeProof);
+        var file = $('#file_nomineeproof').prop('files')[0];
+        formData.append("option",modificationoption);
+        if (file != null) {
+            if (file > 2097152) {
+                alert("Please try to upload file less than 2MB!");
+                return false;
+            }
+            var fileType = file["type"];
+            var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+
+            if ($.inArray(fileType, validImageTypes) < 0) {
+                // invalid file type code goes here.
+                alert('Please upload file in these formats only (jpeg,png,pdf)')
+            }
+            else {
+                    var data = null;
+                    var reader = new FileReader();
+                    reader.readAsBinaryString(file);
+                    reader.onload = function () {
+                        data = btoa(reader.result);
+                        if (data.length > 0) {
+                            formData.append("nomineeproof", data);
+                            formData.append("nomineefiletype", fileType);
+
+                            if ($('#minornominee').is(':checked')) {
+                                formData.append("minornominee", "true");
+                                var guardianTitle = $('#guardianTitle').val();
+                                var guardianName = $('#txtGuardianName').val();
+                                var guardianRelation = $('#txtGuardianRelation').val();
+                                var guardianAddress = $('#txtGuardianAddress').val();
+                                var guardianMobile = $('#txtGuardianMobile').val();
+                                var guardianEmail = $('#txtGuardianEmail').val();
+                                var guardianProofType = $('#guardianProofType').val();
+                                var guardianProof = $('#file_guardianproof').prop('files')[0];
+
+                                if (guardianTitle === '') {
+                                    alert('Choose title for guardian');
+                                    $('#guardianTitle').focus();
+                                    return false;
+                                }
+                                if (guardianName === '') {
+                                    alert('Enter Guardian Name');
+                                    $('#txtGuardianName').focus();
+                                    return false;
+                                }
+                                if (guardianRelation === '') {
+                                    alert('Enter Relation with guardian');
+                                    $('#txtGuardianName').focus();
+                                    return false;
+                                }
+                                if (guardianAddress === '') {
+                                    alert('Enter Address of guardian');
+                                    $('#txtGuardianAddress').focus();
+                                    return false;
+                                }
+                                if (guardianMobile === '') {
+                                    alert('Enter Mobile number of guardian');
+                                    $('#txtGuardianMobile').focus();
+                                    return false;
+                                }
+                                if (guardianEmail === '') {
+                                    alert('Enter Email OD of guardian');
+                                    $('#txtGuardianEmail').focus();
+                                    return false;
+                                }
+                                if (guardianProofType === '') {
+                                    alert('Choose type of guardian proof');
+                                    $('#guardianProofType').focus();
+                                    return false;
+                                }
+
+                                if (guardianProof === '' || guardianProof == null) {
+                                    alert('Choose Guardian Proof');
+                                    $('#file_guardianproof').focus();
+                                    return false;
+                                }
+                                formData.append("guardiantitle", guardianTitle);
+                                formData.append("guardianname", guardianName);
+                                formData.append("guardianrelation", guardianRelation);
+                                formData.append("guardianaddress", guardianAddress);
+                                formData.append("guradianmobile", guardianMobile);
+                                formData.append("guardianemail", guardianEmail);
+                                formData.append("guardianprooftype", guardianProofType);
+
+                                if (guardianProof != null) {
+                                    if (guardianProof > 2097152) {
+                                        alert("Please try to upload file less than 2MB!");
+                                        return false;
+                                    }
+                                    var gfileType = guardianProof["type"];
+                                    var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+
+                                    if ($.inArray(gfileType, validImageTypes) < 0) {
+                                        // invalid file type code goes here.
+                                        alert('Please upload file in these formats only (jpeg,png,pdf)')
+                                    }
+
+                                    var data_guardian = null;
+                                    var reader_guardian = new FileReader();
+                                    reader_guardian.readAsBinaryString(guardianProof);
+                                    reader_guardian.onload = function () {
+                                        data_guardian = btoa(reader_guardian.result);
+                                        if (data_guardian.length > 0) {
+                                            formData.append("guardianproof", data_guardian);
+                                            formData.append("guardianfiletype", gfileType);
+                                            displayLoader();
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "@Url.Action("NominationChange", "Modification")",
+                                                data: formData,
+                                                processData: false,
+                                                contentType: false,
+                                                success: function (response) {
+                                                    hideLoader();
+                                                    //alert(response);
+                                                    if (response.Status === 'success') {
+                                                        esignDocument(response.Doc_Id, response.Email);
+                                                    }
+                                                    else {
+                                                        alert(response.ModificationResponse);
+                                                    }
+
+                                                },
+                                                error: function (response) {
+                                                    // alert(JSON.stringify(response));
+                                                    hideLoader();
+                                                    alert('Something went wrong while submitting data');
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            alert('Please choose guardian proof');
+                                        }
+                                    }
+
+                                }
+                                else {
+                                    alert('Please upload proof of Guardian');
+                                }
+                            }
+
+                            else {
+                                displayLoader();
+                            $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("NominationChange", "Modification")",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                                success: function (response) {
+                                    hideLoader();
+                        if (response.Status === 'success') {
+                            esignDocument(response.Doc_Id, response.Email);
+                        }
+                        else {
+                            alert(response.ModificationResponse);
+                        }
+
+                    },
+                    error: function (response) {
+                       // alert(JSON.stringify(response));
+                        alert('Something went wrong while submitting data');
+                    }
+                });
+                            }
+
+                        }
+                        else {
+                            alert('Please choose the file');
+                        }
+                    }
+            }
+        }
+        else {
+            alert('Please upload the file');
+        }
+
+    });
+        $('#havebalance').change(function () {
+
+            $('.havebalance').css('display', 'block');
+        });
+        $('#nobalance').click(function () {
+            $('.havebalance').css('display', 'none');
+            $('.transfer_ownaccount').css('display', 'none');
+        });
+        $('#transfer_ownaccount').change(function () {
+            $('.transfer_ownaccount').css('display', 'block');
+        });
+        $('#transfer_anotheraccount').change(function () {
+            $('.transfer_ownaccount').css('display', 'none');
+        });
+        $('#remat').change(function () {
+            $('.transfer_ownaccount').css('display', 'none');
+        });
+
+        $('#btnSubmit-closure').click(function () {
+            var reason = $('#txtreason').val();
+            if (reason === '') {
+                alert('Please mention the reason for your account closure.');
+                return false;
+            }
+            var closureType = 'NA';
+            if ($('#havebalance').is(':checked')) {
+                closureType = 'HAVE_BALANCE';
+            }
+            else if ($('#nobalance').is(':checked')) {
+                closureType = "HAVE_NO_BALANCE";
+            }
+            else {
+                closureType = 'NA';
+            }
+            if (closureType === 'NA') {
+                alert('Please choose the applicable option');
+                return false;
+            }
+            var formData = new FormData();
+            formData.append("reason", reason);
+            formData.append("closuretype", closureType);
+            if (closureType === 'HAVE_BALANCE') {
+                var transferoption = $('input[name="sharetransfer"]:checked').val();
+                formData.append("transferoption", transferoption);
+                if (transferoption === 'TRANSFER_TO_MY_ACCOUNT') {
+                    var depository = $('input[name="depository"]:checked').val();
+                    var targetDP = $('#targetdp').val();
+                    var targetClient = $('#targetclient').val();
+                    if (transferoption === '') {
+                        alert('Choose your transfer option');
+                        return false;
+                    }
+                    if (depository === '') {
+                        alert('Choose Depository');
+                        return false;
+                    }
+                    if (targetDP === '') {
+                        alert('Enter Target Client DP');
+                        return false;
+                    }
+                    if (targetClient === '') {
+                        alert('Enter Target Client ID');
+                        return false;
+                    }
+                    var clientmaster = $('#cmfile').prop('files')[0];
+                    if (clientmaster != null) {
+                        if (clientmaster.length > 2097152) {
+                            alert("Please try to upload file less than 2MB!");
+                            return false;
+                        }
+                        var fileType = clientmaster["type"];
+                        var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+
+                        if ($.inArray(fileType, validImageTypes) < 0) {
+                            // invalid file type code goes here.
+                            alert('Please upload file in these formats only (jpeg,png,pdf)')
+                        }
+                        else {
+                            var data = null;
+                            var reader = new FileReader();
+                            reader.readAsBinaryString(clientmaster);
+                            reader.onload = function () {
+                                data = btoa(reader.result);
+                                if (data.length > 0) {
+
+                                    formData.append("depository", depository);
+                                    formData.append("targetDP", targetDP);
+                                    formData.append("targetClient", targetClient);
+                                    formData.append("clientmaster", data);
+                                    formData.append("clientmastertype", fileType);
+                                    //ajax
+                                    AccountClosure(formData);
+                                }
+                                else {
+                                    alert('Please upload client master of target account');
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        alert('Please upload client master of target account');
+                        return false;
+                    }
+                }
+                else {
+                    AccountClosure(formData);
+                }
+            }
+            else {
+                AccountClosure(formData);
+            }
+        });
+        $('#btnSubmit-ddpi').click(function () {
+            displayLoader();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DDPIActivation","Modification")",
+                data: {},
+                success: function (response) {
+                    hideLoader();
+                    //alert(response);
+                    if (response.Status === 'success') {
+                        esignDocument(response.Doc_Id, response.Email);
+                    }
+                    else {
+                        alert(response.ModificationResponse);
+                    }
+                },
+                error: function (response) {
+                    hideLoader();
+                    alert("Something went wrong while processing request");
+                }
+            });
+        });
+
+                $('#btnSubmit-mtf').click(function () {
+            displayLoader();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("MTF","Modification")",
+                data: {},
+                success: function (response) {
+                    hideLoader();
+                    //alert(response);
+                    if (response.Status === 'success') {
+                        esignDocument(response.Doc_Id, response.Email);
+                    }
+                    else {
+                        alert(response.ModificationResponse);
+                    }
+                },
+                error: function (response) {
+                    hideLoader();
+                    alert("Something went wrong while processing request");
+                }
+            });
+                });
+        $('#btnsubmit_financial').click(function () {
+            //validation
+            var income = $('input[name="incomerange"]:checked').val();
+            if (income == null || income == '') {
+                alert('Please choose your Income range');
+                return false;
+            }
+            var incomedate = $('#incomedate').val();
+            if (incomedate == null || incomedate == '') {
+                alert('Please choose Income as on date');
+                return false;
+            }
+            var networth = $('#networth').val();
+            if (networth === '') {
+                alert('Please enter Networth');
+                return false;
+            }
+            if (parseInt(networth) <= 0) {
+                alert('Please enter valid Networth');
+                return false;
+            }
+            var networthdate = $('#networthdate').val();
+            if (networthdate === '') {
+                alert('Please enter Networth as on');
+                return false;
+            }
+            var proofType = $('#financial_proof').val();
+            if (proofType === '0') {
+                alert('Please choose financial proof type');
+                return false;
+            }
+            var file = $('#file_financialproof').prop('files')[0];
+            if (file == null) {
+                alert('Please upload the document');
+                return false;
+            }
+            if (file.length > 2097152) {
+                alert("Please try to upload file less than 2MB!");
+                return false;
+            }
+            var fileType = file["type"];
+            var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+            var formData = new FormData();
+            if ($.inArray(fileType, validImageTypes) < 0) {
+                // invalid file type code goes here.
+                alert('Please upload file in these formats only (jpeg,png,pdf)')
+            }
+            else {
+                var data = null;
+                var reader = new FileReader();
+                reader.readAsBinaryString(file);
+                reader.onload = function () {
+                    data = btoa(reader.result);
+                    if (data.length > 0) {
+                        var formData = new FormData();
+                        formData.append("incomerange", income);
+                        formData.append("incomedate", incomedate);
+                        formData.append("networth", networth);
+                        formData.append("networthdate", networthdate);
+                        formData.append("prooftype", proofType);
+                        formData.append("proof", data);
+                        formData.append("filetype", fileType);
+                        //ajax
+                        displayLoader();
+             $.ajax({
+                type: "POST",
+                url: "@Url.Action("FinancialUpdation","Modification")",
+                 data: formData,
+                 processData: false,
+                 contentType: false,
+                success: function (response) {
+                    hideLoader();
+                    //alert(response);
+                    if (response.ApiStatus === 'SUCCESS') {
+                        esignDocument(response.docID, response.Email);
+                    }
+                    else {
+                        alert(response.ModificationResponse);
+                    }
+                },
+                 error: function (response) {
+                     alert(JSON.stringify(response));
+                    hideLoader();
+                    alert("Something went wrong while processing request");
+                }
+            });
+                    }
+                    else {
+                        alert('Please upload client master of target account');
+                        return false;
+                    }
+                }
+            }
+
+        });
+        $('.exchange_checkboxes').change(function () {
+            var dataBind = $(this).attr('data-bind');
+            var FO = false;
+            if (dataBind === "FaO" || dataBind === "Currency") {
+                FO = false;
+                if ($(this).is(':checked')) {
+                    FO = true;
+                }
+                else {
+                    $('.exchange_checkboxes:checkbox:checked').each(function () {
+                        var data = $(this).attr('data-bind');
+                        if (data === "FaO" || data === "Currency") {
+                            FO = true;
+                        }
+                    });
+
+                }
+            }
+            else {
+                 FO = false;
+                $('.exchange_checkboxes:checkbox:checked').each(function () {
+                    var data = $(this).attr('data-bind');
+                    if (data === "FaO" || data === "Currency") {
+                        FO = true;
+                    }
+                });
+            }
+            if (FO) {
+                $('#DivSegmentAddition_proof').css('display', 'block');
+            } else {
+                $('#DivSegmentAddition_proof').css('display', 'none');
+            }
+        });
+        $('#btnSubmit-SegmentAddition').click(function () {
+            var exchanges = [];
+            var proofStatus = false;
+            $('.exchange_checkboxes:checkbox:checked').each(function () {
+                var exchangeIds = $(this).attr('id');
+                var isDisabled = $(this).prop('disabled');
+                if (!isDisabled) {
+                    exchanges.push(exchangeIds);
+                    var dataBind = $(this).attr('data-bind');
+
+                    if (dataBind === "FaO" || dataBind === "Currency") {
+                        proofStatus = true;
+                    }
+                }
+            });
+            if (exchanges.length > 0) {
+                if (proofStatus) {
+                    var proofType = $('#SegmentAdditionproof').val();
+                    if (proofType === "" || proofType == "0") {
+                        alert('Please select Proof type');
+                        return false;
+                    }
+
+                    //fetch uploaded data
+                    var file = $('#upload_SegmentAdditionproof').prop('files')[0];
+                    if (file != null) {
+                        if (file > 2097152) {
+                            alert("Please try to upload file less than 2MB!");
+                            return false;
+                        }
+
+                        var fileType = file["type"];
+                        var validImageTypes = ["image/jpeg", "image/png", "application/pdf", "image/jpg"];
+
+                        if ($.inArray(fileType, validImageTypes) < 0) {
+                            // invalid file type code goes here.
+                            alert('Please upload file in these formats only (jpeg,png,pdf)');
+                            return false;
+                        }
+
+                        var data = null;
+                        var reader = new FileReader();
+                        reader.readAsBinaryString(file);
+                        reader.onload = function () {
+                            data = btoa(reader.result);
+                            if (data.length > 0) {
+                                var formData = new FormData();
+                                formData.append("exchanges", exchanges);
+                                formData.append("file", data);
+                                formData.append("prooftype", proofType);
+                                formData.append("filetype", fileType);
+                                $.ajax({
+                                    type: "post",
+                                    url: "@Url.Action("SegmentAddition","Modification")",
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (response) {
+                                        hideLoader();
+                                        if (response.Status === 'success') {
+
+                                            esignDocument(response.docID, response.Email);
+                                        }
+                                        else {
+                                            alert(response.Message);
+                                        }
+                                    },
+                                    error: function (response) {
+                                        alert('Unable to process your request');
+                                    }
+                                });
+                            }
+                            else {
+                                alert('Please upload financial proof');
+                                return false;
+                            }
+                        }
+
+                    }
+                    else {
+                        alert('Please upload file');
+                        return false;
+                    }
+                }
+                else {
+                    var formData = new FormData();
+                    formData.append("exchanges", exchanges);
+                    formData.append("file", null);
+                    formData.append("prooftype", "NA");
+                    formData.append("filetype", "NA");
+                     $.ajax({
+                    type: "post",
+                    url: "@Url.Action("SegmentAddition","Modification")",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        hideLoader();
+                          if (response.Status === 'success') {
+                                 esignDocument(response.docID, response.Email);
+                             }
+                             else {
+                                 alert(response.Message);
+                             }
+                    },
+                    error: function (response) {
+
+                    }
+                });
+                }
+
+            } else {
+                alert('Please choose Segment you want to Add');
+                return false;
+            }
+        });
+
+    });
+    function AccountClosure (formData) {
+        displayLoader();
+                                $.ajax({
+                                        type: "POST",
+                                        url: "@Url.Action("AccountClosureRequest", "Modification")",
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (response) {
+                                            hideLoader();
+                                            if (response.Status == "success") {
+                                                if (response.Doc_Id != 'NA' && response.Doc_Id != 'errorattachment') {
+                                                    esignDocument(response.Doc_Id, response.Email);
+                                                }
+                                                else if (response.Doc_Id === 'errorattachment') {
+                                                    alert('Some of your attached document is password protected. We cannot process such documents. Please upload it agian by removing password protection and continue the process.')
+                                                }
+                                            }
+                                            else {
+                                                alert("you already requested for Account Closure");
+                                            }
+                                        },
+                                        error: function (response) {
+                                            hideLoader();
+                                            alert('Something went wrong while E-Signing the document');
+                                        }
+                                    });
+    }
+      function esignDocument(doc_id, identifier) {
+       // alert(doc_id);
+
+        var options = {
+            environment: "production",
+            callback: function (response) {
+               // alert(response);
+                var docId = response.digio_doc_id;
+                if (response.error_code != undefined)
+                    alert("Something went wrong,cannot process the signing process");
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("saveDocument","Modification")",
+                        data: { docId: docId },
+                        success: function (response) {
+                            if (response == "success") {
+                                alert("Your request submitted successfully");
+                                window.location.href = "@Url.Action("ClientModification","Modification")";
+                            }
+                        },
+                        error: function (response) {
+                            //alert(JSON.stringify(response));
+                            alert('Something went wrong while E-Signing the document');
+                        }
+                    });
+                }
+            },
+            logo: "",
+            method: ""
+        };
+        options.method = 'otp';
+        var digio = new Digio(options);
+        //alert(digio);
+        digio.init();
+       // alert('init invoked');
+        digio.submit(doc_id, identifier);
+    }
+
+    function esignDocumentClick() {
+
+        var LogoPath;
+        LogoPath = document.getElementById("LogoPath").value;
+
+        var AuthenticationType;
+        var AuthenticationType = document.getElementById("AuthenticationType").value;
+
+        if (AuthenticationType == "OTP") {
+            AuthenticationType = "otp"
+        } else {
+            AuthenticationType = "biometric"
+
+        };
+
+        var DocumentID;
+        var DocumentID = document.getElementById("DocumentID").value;
+
+
+        var Identifier;
+        var Identifier = document.getElementById("Identifier").value;
+
+        var options = {
+
+            "environment": "stage",
+            "callback": function (t) {
+                if (t.error_code != undefined)
+                    alert("failed to sign with error :" + t.message);
+                else
+                    alert("sign successful for " + t.digio_doc_id);
+                window.location.replace("success.html");
+            },
+            "logo": "",
+            "method": "otp"
+        };
+
+        options.logo = LogoPath;
+        options.method = AuthenticationType;
+
+        var digio = new Digio(options);
+        digio.init();
+        digio.esign(DocumentID, Identifier);
+
+    }
+    function bindClientSegments () {
+        $.ajax({
+            type: "post",
+            url: "@Url.Action("BindClientSegments","Modification")",
+            data: {},
+            success: function (response) {
+                if (response.Status === "success") {
+                    $.each(response.Segments, function (index, value) {
+                        $('#' + value).prop('checked', true);
+                        $('#' + value).attr('disabled', true);
+                    });
+                }
+
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+</script>
+
+
